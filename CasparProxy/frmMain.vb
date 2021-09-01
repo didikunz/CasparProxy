@@ -242,6 +242,9 @@ Public Class frmMain
       If WindowState = FormWindowState.Minimized Then
          Hide()
          niTaskbarIcon.Visible = True
+         If _Settings IsNot Nothing Then
+            _Settings.Minimize2Tray = True
+         End If
       End If
    End Sub
 
@@ -251,12 +254,15 @@ Public Class frmMain
 
          e.Cancel = True
          Hide()
+         niTaskbarIcon.Visible = True
+         If _Settings IsNot Nothing Then
+            _Settings.Minimize2Tray = True
+         End If
 
       Else
 
          If _Settings IsNot Nothing Then
 
-            _Settings.Minimize2Tray = Not Visible
             _Settings.ReadWindowPos(Me)
             _Settings.Save(_SettingsFName)
 
@@ -292,6 +298,9 @@ Public Class frmMain
    Private Sub cntmnuTrayShowUserInterface_Click(sender As Object, e As EventArgs) Handles cntmnuTrayShowUserInterface.Click
       Show()
       WindowState = FormWindowState.Normal
+      If _Settings IsNot Nothing Then
+         _Settings.Minimize2Tray = False
+      End If
    End Sub
 
    Private Sub cntmnuTrayExit_Click(sender As Object, e As EventArgs) Handles cntmnuTrayExit.Click
